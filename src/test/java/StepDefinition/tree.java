@@ -1,6 +1,11 @@
 package StepDefinition;
 
 import static org.testng.Assert.assertEquals;
+
+import java.io.IOException;
+
+import Commons.ConfigReader;
+import Commons.ExcelReader;
 import Commons.LoggerLoad;
 import PageFactory.Tree_pf;
 import io.cucumber.java.en.Given;
@@ -13,14 +18,32 @@ public class tree {
 	String pagetitle;
 	boolean practicequestioncontent;
 	
-@Given("Tree - User is in the Home page after logging in")
-public void tree_user_is_in_the_home_page_after_logging_in() { 
+@Given("Tree - User is in the Home page after logging in using credentials from Excel {int}")
+public void tree_user_is_in_the_home_page_after_logging_in_using_credentials_from_excel(Integer Rownum) throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ExcelReader read = new ExcelReader();
+	String username = read.getusername(Rownum);
+	String password = read.getpassword(Rownum);	
+	tpf.homepage(username, password);
 	pagetitle = tpf.checkpageTitle();
 	assertEquals(pagetitle, "NumpyNinja", "Not on the Home page");
+    LoggerLoad.info("Current page: "+pagetitle);
+}
+
+@Given("User is in the Tree page after logging in using credentials from Excel {int}")
+public void user_is_in_the_tree_page_after_logging_in_using_credentials_from_excel(Integer Rownum) throws IOException {
+	LoggerLoad.info("Launched browser from hooks !!");
+	LoggerLoad.info("Signing in..");
+	tpf=new Tree_pf();
+	ExcelReader read = new ExcelReader();
+	String username = read.getusername(Rownum);
+	String password = read.getpassword(Rownum);	
+	tpf.homepage(username, password);
+	LoggerLoad.info("Moving to Tree page..");
+	pagetitle = tpf.Treepage();
+	assertEquals(pagetitle, "Tree", "Not on the Tree page");
     LoggerLoad.info("Current page: "+pagetitle);
 }
 
@@ -38,11 +61,14 @@ public void user_lands_on_the_tree_page() {
 }
 
 @Given("User is in the Tree page")
-public void user_is_in_the_tree_page() {
+public void user_is_in_the_tree_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	assertEquals(pagetitle, "Tree", "Not on the Tree page");
@@ -61,11 +87,14 @@ public void user_lands_on_the_overview_of_trees_page() {
 }
 
 @Given("User is in the Overview of Trees page")
-public void user_is_in_the_overview_of_trees_page() {
+public void user_is_in_the_overview_of_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle = tpf.overviewoftrees();
@@ -97,11 +126,14 @@ public void tree_user_lands_on_the_try_editor_page() {
     }
 
 @Given("Tree - User is in Try Editor page	from Overview of Trees page")
-public void tree_user_is_in_try_editor_page_from_overview_of_trees_page() {
+public void tree_user_is_in_try_editor_page_from_overview_of_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle = tpf.overviewoftrees();
@@ -141,11 +173,14 @@ public void tree_correct_output_is_displayed_in_the_console() {
 	}
 
 @Given("User is in Tree page")
-public void user_is_in_tree_page() {
+public void user_is_in_tree_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	assertEquals(pagetitle, "Tree", "Not on the Tree page");
@@ -164,11 +199,14 @@ public void tree_user_lands_on_the_terminologies_page() {
 }
 
 @Given("Tree - User is in Try Editor page from Terminologies page")
-public void tree_user_is_in_try_editor_page_from_terminologies_page() {
+public void tree_user_is_in_try_editor_page_from_terminologies_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.terminologies();
@@ -189,11 +227,14 @@ public void user_lands_on_the_types_of_trees_page() {
 }
 
 @Given("Tree - User is in Try Editor page from Types of Trees page")
-public void tree_user_is_in_try_editor_page_from_types_of_trees_page() {
+public void tree_user_is_in_try_editor_page_from_types_of_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.typesoftrees();
@@ -215,11 +256,14 @@ public void user_lands_on_the_tree_traversals_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Tree Traversals page")
-public void tree_user_is_in_try_editor_page_from_tree_traversals_page() {
+public void tree_user_is_in_try_editor_page_from_tree_traversals_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.treetraversals();
@@ -240,11 +284,14 @@ public void tree_user_lands_on_the_traversals_illustration_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Traversals-Illustration page")
-public void tree_user_is_in_try_editor_page_from_traversals_illustration_page() {
+public void tree_user_is_in_try_editor_page_from_traversals_illustration_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.traversalsillustration();
@@ -265,11 +312,14 @@ public void user_lands_on_the_binary_trees_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Binary Trees page")
-public void tree_user_is_in_try_editor_page_from_binary_trees_page() {
+public void tree_user_is_in_try_editor_page_from_binary_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.binarytrees();
@@ -290,11 +340,14 @@ public void user_lands_on_the_types_of_binary_trees_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Types of Binary Trees page")
-public void tree_user_is_in_try_editor_page_from_types_of_binary_trees_page() {
+public void tree_user_is_in_try_editor_page_from_types_of_binary_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.binarytrees();
@@ -315,11 +368,14 @@ public void tree_user_lands_on_the_implementation_in_python_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Implementation in Python page")
-public void tree_user_is_in_try_editor_page_from_implementation_in_python_page() {
+public void tree_user_is_in_try_editor_page_from_implementation_in_python_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.implementationinpython();
@@ -340,11 +396,14 @@ public void user_lands_on_the_binary_tree_traversals_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Binary Tree Traversals page")
-public void tree_user_is_in_try_editor_page_from_binary_tree_traversals_page() {
+public void tree_user_is_in_try_editor_page_from_binary_tree_traversals_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.binarytreetraversals();
@@ -365,11 +424,14 @@ public void user_lands_on_the_implementation_of_binary_trees_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Implementation of Binary Trees page")
-public void tree_user_is_in_try_editor_page_from_implementation_of_binary_trees_page() {
+public void tree_user_is_in_try_editor_page_from_implementation_of_binary_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.implementationofbinarytrees();
@@ -390,11 +452,14 @@ public void user_lands_on_the_applications_of_binary_trees_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Applications of Binary trees page")
-public void tree_user_is_in_try_editor_page_from_applications_of_binary_trees_page() {
+public void tree_user_is_in_try_editor_page_from_applications_of_binary_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.applicationofbinarytrees();
@@ -415,11 +480,14 @@ public void user_lands_on_the_binary_search_trees_page() {
 }
 
 @Given("Tree - User is in Try Editor page	Binary Search Trees page")
-public void tree_user_is_in_try_editor_page_binary_search_trees_page() {
+public void tree_user_is_in_try_editor_page_binary_search_trees_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.binarysearchtrees();
@@ -440,11 +508,14 @@ public void tree_user_lands_on_the_implementation_of_bst_page() {
 }
 
 @Given("Tree - User is in Try Editor page	from Implementation Of BST page")
-public void tree_user_is_in_try_editor_page_from_implementation_of_bst_page() {
+public void tree_user_is_in_try_editor_page_from_implementation_of_bst_page() throws IOException {
 	LoggerLoad.info("Launched browser from hooks !!");
 	LoggerLoad.info("Signing in..");
 	tpf=new Tree_pf();
-	tpf.homepage();
+	ConfigReader config = new ConfigReader();
+	String username = config.getusername();
+	String password = config.getpassword();
+	tpf.homepage(username, password);
 	LoggerLoad.info("Moving to Tree page..");
 	pagetitle = tpf.Treepage();
 	pagetitle=tpf.implementationofbst();

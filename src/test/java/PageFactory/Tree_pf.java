@@ -1,27 +1,18 @@
 package PageFactory;
 
-import java.time.Duration;
-
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import Commons.BrowserFactory;
+
 
 public class Tree_pf{
 	
-
-	String pagetitle;
-	String url = "https://dsportalapp.herokuapp.com/home";
-	String uname = "milestonemavericks";
-	String pwd = "Welcome@123";
 	WebDriver driver = BrowserFactory.getdriverinstance();
-	
+	String pagetitle;
 	
 	@FindBy (linkText="Sign in") WebElement signin;
 	@FindBy (name="username") WebElement username;
@@ -47,21 +38,13 @@ public class Tree_pf{
 	@FindBy (xpath="//div[@class='input']//textarea") WebElement codetextarea;
 	@FindBy (xpath="//button[@type='button']") WebElement runbutton;
 	@FindBy (xpath="//pre[@id='output']") WebElement consoleoutput;
-		
-	public void homepage() {
 
-		driver.get(url);
-	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.manage().window().maximize();
+	public void homepage(String uname, String pwd) {
 		PageFactory.initElements(driver,this);
 		signin.click();
 		username.sendKeys(uname);
 		password.sendKeys(pwd);
 		login.click();
-	}
-	
-	public void closebrowser() {
-		 driver.quit();
 	}
 	
 	public String Treepage() {
