@@ -9,7 +9,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		plugin = {"pretty", "html:target/result.html"}, 
 		monochrome=false, 
-		tags = " ",
+		tags = "@Tree",
 		features = {"src/test/resources/features"}, 
 		glue= {"StepDefinition","Hooks"}) 
 
